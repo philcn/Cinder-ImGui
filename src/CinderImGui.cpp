@@ -2043,7 +2043,7 @@ struct DockContext
 				dock_tab = dock_tab->next_tab;
 			}
 			ImVec2 cp(dock.pos.x, tab_base + line_height);
-			draw_list->AddLine(cp, cp + ImVec2(dock.size.x, 0), color);
+			draw_list->AddLine(cp, cp + ImVec2(dock.size.x, 0), color_active);
 		}
 		EndChild();
 		return tab_closed;
