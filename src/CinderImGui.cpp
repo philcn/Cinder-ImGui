@@ -1980,14 +1980,14 @@ struct DockContext
 
 	bool tabbar(Dock& dock, bool close_button)
 	{
-		float tabbar_height = 2 * GetTextLineHeightWithSpacing();
+		float tabbar_height = GetTextLineHeightWithSpacing() + GetStyle().WindowPadding.y + 1;
 		ImVec2 size(dock.size.x, tabbar_height);
 		bool tab_closed = false;
 
 		SetCursorScreenPos(dock.pos);
 		char tmp[20];
 		ImFormatString(tmp, IM_ARRAYSIZE(tmp), "tabs%d", (int)dock.id);
-		if (BeginChild(tmp, size, true))
+		if (BeginChild(tmp, size, false))
 		{
 			Dock* dock_tab = &dock;
 
@@ -2021,6 +2021,7 @@ struct DockContext
 
 				bool hovered = IsItemHovered();
 				ImVec2 pos = GetItemRectMin();
+				pos.y += GetStyle().WindowPadding.y;
 				if (dock_tab->active && close_button)
 				{
 					size.x += 16 + GetStyle().ItemSpacing.x;
@@ -2296,7 +2297,7 @@ struct DockContext
 
 		PushStyleColor(ImGuiCol_Border, ImVec4(0, 0, 0, 0));
 		PushStyleColor(ImGuiCol_BorderShadow, ImVec4(0, 0, 0, 0));
-		float tabbar_height = GetTextLineHeightWithSpacing();
+		float tabbar_height = GetTextLineHeightWithSpacing() + GetStyle().WindowPadding.y + 1;
 		if (tabbar(dock.getFirstTab(), opened != nullptr))
 		{
 			fillLocation(dock);
@@ -2304,8 +2305,8 @@ struct DockContext
 		}
 		ImVec2 pos = dock.pos;
 		ImVec2 size = dock.size;
-		pos.y += tabbar_height + GetStyle().WindowPadding.y;
-		size.y -= tabbar_height + GetStyle().WindowPadding.y;
+		pos.y += tabbar_height;
+		size.y -= tabbar_height;
 
 		SetCursorScreenPos(pos);
 		ImGuiWindowFlags flags = ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize |
