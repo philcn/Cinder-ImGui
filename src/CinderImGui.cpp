@@ -253,6 +253,7 @@ ImGui::Options& ImGui::Options::darkTheme()
 	style.Colors[ImGuiCol_Text]                  = ImVec4(0.86f, 0.93f, 0.89f, 0.78f);
 	style.Colors[ImGuiCol_TextDisabled]          = ImVec4(0.86f, 0.93f, 0.89f, 0.28f);
 	style.Colors[ImGuiCol_WindowBg]              = ImVec4(0.13f, 0.14f, 0.17f, 1.00f);
+	style.Colors[ImGuiCol_ChildWindowBg]		 = ImVec4(0.20f, 0.22f, 0.27f, 0.58f);
 	style.Colors[ImGuiCol_Border]                = ImVec4(0.31f, 0.31f, 1.00f, 0.00f);
 	style.Colors[ImGuiCol_BorderShadow]          = ImVec4(0.00f, 0.00f, 0.00f, 0.00f);
 	style.Colors[ImGuiCol_FrameBg]               = ImVec4(0.20f, 0.22f, 0.27f, 1.00f);
@@ -1992,7 +1993,7 @@ struct DockContext
 			Dock* dock_tab = &dock;
 
 			ImDrawList* draw_list = GetWindowDrawList();
-			ImU32 color = GetColorU32(ImGuiCol_WindowBg);//ImGuiCol_FrameBg);
+			ImU32 color = GetColorU32(ImGuiCol_FrameBg);//ImGuiCol_FrameBg);
 			ImU32 color_active = GetColorU32(ImGuiCol_WindowBg);//ImGuiCol_FrameBgActive);
 			ImU32 color_hovered = GetColorU32(ImGuiCol_FrameBgActive);//ImGuiCol_FrameBgHovered);
 			ImU32 text_color = GetColorU32(ImGuiCol_Text);
