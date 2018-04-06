@@ -1037,6 +1037,10 @@ void initialize( const Options &options )
 	if( ! options.getIniPath().empty() )
 		path = options.getIniPath().string().c_str();
 	io.IniFilename = path.c_str();
+
+#if defined( IMGUI_DOCK )
+	LoadDock();
+#endif
 	
 	// setup fonts
 	ImFontAtlas* fontAtlas  = ImGui::GetIO().Fonts;
