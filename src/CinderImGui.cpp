@@ -1943,7 +1943,7 @@ struct DockContext
 		if (!dock.next_tab) return;
 
 		ImDrawList* draw_list = GetWindowDrawList();
-		if (InvisibleButton("list", ImVec2(16, 16)))
+		if (InvisibleButton("list", ImVec2(16 + 8, 16 + GetStyle().WindowPadding.y)))
 		{
 			OpenPopup("tab_list_popup");
 		}
@@ -1963,7 +1963,7 @@ struct DockContext
 		}
 
 		bool hovered = IsItemHovered();
-		ImVec2 min = GetItemRectMin();
+		ImVec2 min = GetItemRectMin() + ImVec2(8, GetStyle().WindowPadding.y);
 		ImVec2 max = GetItemRectMax();
 		ImVec2 center = (min + max) * 0.5f;
 		ImU32 text_color = GetColorU32(ImGuiCol_Text);
