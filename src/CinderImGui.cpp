@@ -857,8 +857,36 @@ namespace {
 		
 		event.setHandled( io.WantCaptureMouse );
 	}
-	
-	
+
+    //! sets the right mouseDown IO values in imgui
+    void touchesBegan( ci::app::TouchEvent& event )
+    {
+        ImGuiIO& io = ImGui::GetIO();
+        io.MousePos = toPixels( event.getTouches().front().getPos() );
+        io.MouseDown[0] = true;
+        io.MouseDown[1] = false;
+
+        event.setHandled( io.WantCaptureMouse );
+    }
+    //! sets the right mouseDown IO values in imgui
+    void touchesEnded( ci::app::TouchEvent& event )
+    {
+        ImGuiIO& io = ImGui::GetIO();
+        io.MousePos = toPixels( event.getTouches().front().getPos() );
+        io.MouseDown[0] = false;
+        io.MouseDown[1] = false;
+
+        event.setHandled( io.WantCaptureMouse );
+    }
+    //! sets the right mouseDown IO values in imgui
+    void touchesMoved( ci::app::TouchEvent& event )
+    {
+        ImGuiIO& io = ImGui::GetIO();
+        io.MousePos = toPixels( event.getTouches().front().getPos() );
+
+        event.setHandled( io.WantCaptureMouse );
+    }
+
 	vector<int> sAccelKeys;
 	
 	//! sets the right keyDown IO values in imgui
@@ -1109,7 +1137,12 @@ void connectWindow( ci::app::WindowRef window )
 	sWindowConnections += window->getSignalKeyDown().connect( keyDown );
 	sWindowConnections += window->getSignalKeyUp().connect( keyUp );
 	sWindowConnections += window->getSignalResize().connect( resize );
+
+    sWindowConnections += window->getSignalTouchesBegan().connect( touchesBegan );
+    sWindowConnections += window->getSignalTouchesEnded().connect( touchesEnded );
+    sWindowConnections += window->getSignalTouchesMoved().connect( touchesMoved );
 }
+
 void disconnectWindow( ci::app::WindowRef window )
 {
 	sWindowConnections.clear();
